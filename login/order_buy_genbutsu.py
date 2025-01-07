@@ -1,6 +1,7 @@
 import requests
+import json
+from urllib.parse import quote
 
-url = "https://demo-kabuka.e-shiten.jp/e_api_v4r5/"
 
 data = {
     "sCLMID":"CLMKabuNewOrder",
@@ -10,7 +11,7 @@ data = {
     "sBaibaiKubun":"3",
     "sCondition":"0",
     "sOrderPrice":"0",
-    "sOrderSuryou":"100",
+    "sOrderSuryou":"1000",
     "sGenkinShinyouKubun":"0",
     "sOrderExpireDay":"0",
     "sGyakusasiOrderType":"0",
@@ -21,7 +22,11 @@ data = {
     "sSecondPassword":"pswd",
 }
 
-response = requests.post(url, json=data)
+json_string =json.dumps(data)
+encoded_json_string = quote(json_string)
 
-response_json = response.json()
-print(response_json)
+url = f'https://demo-kabuka.e-shiten.jp/e_api_v4r5/request/MzUzMDI0NzExMDcwMS0xMTYtNjAzMDU=/?{encoded_json_string}
+
+response = requests.get(url)
+
+print(response.text)
