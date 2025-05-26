@@ -32,3 +32,5 @@ def login():
 
     print(response.text)
 
+
+print(login())
